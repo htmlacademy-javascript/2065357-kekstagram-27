@@ -9,4 +9,6 @@ const getRandomInteger = (min, max) => {
 
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
-export { getRandomInteger, checkStringLength };
+const getRandomArrayElement = (arr) => arr[getRandomInteger(0, arr.length - 1)];
+
+export { getRandomInteger, checkStringLength, getRandomArrayElement };
