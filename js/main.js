@@ -1,1 +1,3 @@
-import './util.js';
+import { renderPictures } from './preview-picture.js';
+
+renderPictures();
