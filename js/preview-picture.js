@@ -1,3 +1,4 @@
+import { renderBigPicture } from './big-picture.js';
 import { createPhotoCards } from './data.js';
 
 const picturesContainer = document.querySelector('.pictures');
@@ -22,6 +23,7 @@ const renderPhotoCards = (photoCards) => {
 
     photoCardsFragment.append(photoElement);
 
+    photoElement.addEventListener('click', () => renderBigPicture(photoCard));
   });
 
   return photoCardsFragment;
@@ -29,4 +31,4 @@ const renderPhotoCards = (photoCards) => {
 
 const renderPictures = () => picturesContainer.append(renderPhotoCards(previewPhotoCards));
 
-export { renderPictures };
+export { renderPictures, picturesContainer };
