@@ -1,7 +1,7 @@
 import { getRandomInteger, getRandomArrayElement } from './util.js';
 
 const PHOTOS_COUNT = 25;
-const COMMENTS_MAX_COUNT = 10;
+const COMMENTS_MAX_COUNT = 20;
 const LIKES = {
   MIN: 15,
   MAX: 200

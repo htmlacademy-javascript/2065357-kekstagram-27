@@ -6,25 +6,23 @@ const bigPicturePreview = bigPictureContainer.querySelector('.big-picture__previ
 
 const closeModalHandler = () => {
   bigPictureContainer.classList.add('hidden');
-  document.body.classList.remove('.modal-open');
+  document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', escapeKeydownHandler);
   modalCloseBtn.removeEventListener('click', closeModalHandler);
 
+  bigPictureContainer.removeEventListener('click', closeModalHandler);
   bigPicturePreview.removeEventListener('click', setStopPropagationHandler);
 };
 
 const showModal = () => {
   bigPictureContainer.classList.remove('hidden');
-  document.querySelector('.social__comment-count').classList.add('hidden');
-  document.querySelector('.social__comments-loader').classList.add('hidden');
-  document.body.classList.add('.modal-open');
+  document.body.classList.add('modal-open');
   document.addEventListener('keydown', escapeKeydownHandler);
   modalCloseBtn.addEventListener('click', closeModalHandler);
 
+  bigPictureContainer.addEventListener('click', closeModalHandler);
   bigPicturePreview.addEventListener('click', setStopPropagationHandler);
 };
-
-bigPictureContainer.addEventListener('click', closeModalHandler);
 
 picturesContainer.addEventListener('click', (evt) => {
   if (evt.target.closest('.picture')) {
