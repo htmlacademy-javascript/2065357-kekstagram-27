@@ -12,6 +12,8 @@ const MAX_VISIBLE_OF_COMMENTS = 5;
 
 const renderComments = (comments) => {
 
+  commentsContainer.innerHTML = '';
+
   let i = 0;
 
   const showComments = (count) => {
@@ -31,8 +33,6 @@ const renderComments = (comments) => {
       commentsLoadButton.classList.add('hidden');
     }
   };
-
-  commentsContainer.innerHTML = '';
 
   showComments(MAX_VISIBLE_OF_COMMENTS);
 
