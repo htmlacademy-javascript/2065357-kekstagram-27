@@ -1,4 +1,5 @@
 import { commentField, hashtagsField, pristine, uploadForm } from './validate.js';
+import { effectsClickHandler, setDefaultEffect } from './effects.js';
 
 const SCALE_SETTINGS = {
   MIN_VALUE: 25,
@@ -13,6 +14,7 @@ const scaleField = uploadForm.querySelector('.scale__control--value');
 const scaleUpButton = uploadForm.querySelector('.scale__control--bigger');
 const scaleDownButton = uploadForm.querySelector('.scale__control--smaller');
 const previewPicture = uploadForm.querySelector('.img-upload__preview img');
+const effectsContainer = uploadForm.querySelector('.img-upload__effects');
 
 const setDefaultScaleValue = () => {
   scaleField.value = `${SCALE_SETTINGS.DEFAULT_VALUE}%`;
@@ -33,15 +35,18 @@ const closeUploadFormHandler = () => {
   document.removeEventListener('keydown', escapeKeydownHandler);
   closeButton.removeEventListener('click', closeUploadFormHandler);
   uploadOverlay.removeEventListener('click', uploadOverlayClickHandler);
+  effectsContainer.removeEventListener('click', effectsClickHandler);
 };
 
 const showUploadForm = () => {
   setDefaultScaleValue();
+  setDefaultEffect();
   uploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', escapeKeydownHandler);
   closeButton.addEventListener('click', closeUploadFormHandler);
   uploadOverlay.addEventListener('click', uploadOverlayClickHandler);
+  effectsContainer.addEventListener('click', effectsClickHandler);
 };
 
 const checkFocus = (evt) => evt.target.className === 'text__description' || evt.target.className === 'text__hashtags';
@@ -82,3 +87,5 @@ uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export { previewPicture };
