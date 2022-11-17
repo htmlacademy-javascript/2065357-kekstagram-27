@@ -1366,6 +1366,31 @@ main {
   transform: translateX(-50%);
 }
 
+/**
+ * Стили для слайдера
+ */
+
+.effect-level__slider.noUi-target:not(#fake-id) {
+  height: 20px;
+  transform: translateY(-1px);
+  margin: 0 auto;
+}
+
+.effect-level__slider:not(#fake-id) .noUi-handle {
+  border-radius: 50%;
+  width: 29px;
+  height: 29px;
+  cursor: grab;
+  top: -6px;
+  background-color: #ffffff;
+  border: 2px solid rgb(44, 44, 44);
+}
+
+.effect-level__slider:not(#fake-id) .noUi-handle::after,
+.effect-level__slider:not(#fake-id) .noUi-handle::before {
+  display: none;
+}
+
 
 /* Адаптивности чуток
    ========================================================================== */
