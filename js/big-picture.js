@@ -1,3 +1,5 @@
+const MAX_VISIBLE_OF_COMMENTS = 5;
+
 const bigPictureContainer = document.querySelector('.big-picture');
 const image = bigPictureContainer.querySelector('.big-picture__img img');
 const likesCount = bigPictureContainer.querySelector('.likes-count');
@@ -8,40 +10,41 @@ const socialCaption = bigPictureContainer.querySelector('.social__caption');
 const commentsContainer = bigPictureContainer.querySelector('.social__comments');
 const commentElement = commentsContainer.querySelector('.social__comment');
 
-const MAX_VISIBLE_OF_COMMENTS = 5;
-
+let countCommentVisible = MAX_VISIBLE_OF_COMMENTS;
 const renderComments = (comments) => {
 
   commentsContainer.innerHTML = '';
+  countCommentVisible = MAX_VISIBLE_OF_COMMENTS;
 
-  let i = 0;
+  comments.forEach((comment) => {
+    const commentTemplate = commentElement.cloneNode(true);
+    commentTemplate.classList.add('hidden');
+    commentTemplate.querySelector('.social__picture').src = comment.avatar;
+    commentTemplate.querySelector('.social__picture').alt = comment.name;
+    commentTemplate.querySelector('.social__text').textContent = comment.message;
 
-  const showComments = (count) => {
-    while (i < count && i < comments.length) {
-      const commentTemplate = commentElement.cloneNode(true);
-      commentTemplate.querySelector('.social__picture').src = comments[i].avatar;
-      commentTemplate.querySelector('.social__picture').alt = comments[i].name;
-      commentTemplate.querySelector('.social__text').textContent = comments[i].message;
+    commentsContainer.append(commentTemplate);
 
-      commentsContainer.append(commentTemplate);
-
-      i++;
-    }
-    commentsCountInfoBlock.textContent = `${i} из ${comments.length} комментариев`;
-    commentsLoadButton.classList.remove('hidden');
-    if (i === comments.length) {
-      commentsLoadButton.classList.add('hidden');
-    }
-  };
-
-  showComments(MAX_VISIBLE_OF_COMMENTS);
-
-  let countCommentVisible = MAX_VISIBLE_OF_COMMENTS;
-  commentsLoadButton.addEventListener('click', () => {
-    countCommentVisible += MAX_VISIBLE_OF_COMMENTS;
-    showComments(countCommentVisible);
   });
 };
+
+const showCommentsHandler = () => {
+  const comments = bigPictureContainer.querySelectorAll('.social__comment');
+
+  for (let i = 0; i < countCommentVisible && i < comments.length; i++) {
+    comments[i].classList.remove('hidden');
+
+    commentsCountInfoBlock.textContent = `${i + 1} из ${comments.length} комментариев`;
+    commentsLoadButton.classList.remove('hidden');
+    if (i === comments.length - 1) {
+      commentsLoadButton.classList.add('hidden');
+    }
+  }
+
+  countCommentVisible += MAX_VISIBLE_OF_COMMENTS;
+};
+
+commentsLoadButton.addEventListener('click', showCommentsHandler);
 
 const renderBigPicture = (data) => {
   image.src = data.url;
@@ -49,6 +52,7 @@ const renderBigPicture = (data) => {
   likesCount.textContent = data.likes;
   commentsCount.textContent = data.comments.length;
   renderComments(data.comments);
+  showCommentsHandler();
 };
 
 export { bigPictureContainer, renderBigPicture };
