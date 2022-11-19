@@ -3,7 +3,7 @@ import { effectsClickHandler, resetPictureEffects } from './effects.js';
 import { scaleDownClickHandler, scaleUpClickHandler } from './scale-picture.js';
 import { sendRequest } from './api.js';
 import { showErrorMessage, showSuccessMessage, postSuccessMessage, postErrorMessage } from './message.js';
-
+import { resetPhotoFields, setUserLoadPhoto } from './load-photo.js';
 
 const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const uploadField = uploadForm.querySelector('#upload-file');
@@ -21,6 +21,7 @@ const resetForm = (form) => {
   commentField.value = '';
   pristine.reset();
   resetPictureEffects();
+  resetPhotoFields();
 };
 
 const closeUploadFormHandler = () => {
@@ -45,6 +46,7 @@ const showUploadFormHandler = () => {
   effectsContainer.addEventListener('click', effectsClickHandler);
   scaleUpButton.addEventListener('click', scaleUpClickHandler);
   scaleDownButton.addEventListener('click', scaleDownClickHandler);
+  setUserLoadPhoto(uploadField);
 };
 
 const blockSubmitButton = () => {
@@ -98,4 +100,4 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-export { previewPicture };
+export { previewPicture, uploadField };
