@@ -4,9 +4,11 @@ import './modal.js';
 import './form.js';
 import './effects.js';
 import { sendRequest } from './api.js';
-import { renderPictures } from './preview-picture.js';
+import { renderDefaultPictures } from './preview-picture.js';
 import { showGetErrorMessage } from './message.js';
+import { showFilters } from './filter.js';
 
-sendRequest((pictures) => {
-  renderPictures(pictures);
+sendRequest(() => {
+  renderDefaultPictures();
+  showFilters();
 }, showGetErrorMessage, 'GET');

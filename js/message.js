@@ -15,7 +15,7 @@ const requestErrorMessage = `<div style="
                                 z-index: 100;
                                 font-size: 50px;
                                 font-weight: 700;
-                                color: red;
+                                color: #ff4e4e;
                                 width: 700px;
                                 height: 250px;
                                 position: absolute;
