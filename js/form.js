@@ -2,8 +2,8 @@ import { commentField, hashtagsField, pristine, uploadForm } from './validate.js
 import { effectsClickHandler, resetPictureEffects } from './effects.js';
 import { scaleDownClickHandler, scaleUpClickHandler } from './scale-picture.js';
 import { sendRequest } from './api.js';
-import { showErrorMessage, showSuccessMessage, postSuccessMessage, postErrorMessage } from './message.js';
-import { resetPhotoFields, setUserLoadPhoto } from './load-photo.js';
+import { showErrorMessage, showSuccessMessage, postErrorMessage } from './message.js';
+import { resetPhotoFields, setUserLoadPhoto } from './upload-photo.js';
 
 const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const uploadField = uploadForm.querySelector('#upload-file');
@@ -68,7 +68,7 @@ function uploadOverlayClickHandler(evt) {
 }
 
 function escapeKeydownHandler(evt) {
-  if (document.body.lastChild === postErrorMessage || document.body.lastChild === postSuccessMessage) {
+  if (document.body.lastChild === postErrorMessage) {
     return;
   }
 
@@ -87,7 +87,7 @@ uploadForm.addEventListener('submit', (evt) => {
     sendRequest(
       () => {
         showSuccessMessage();
-        resetForm(evt.target);
+        closeUploadFormHandler();
         unblockSubmitButton();
       },
       () => {
