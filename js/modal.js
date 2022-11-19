@@ -1,5 +1,5 @@
 import { picturesContainer } from './preview-picture.js';
-import { bigPictureContainer } from './big-picture.js';
+import { bigPictureContainer, commentsLoadButton, showCommentsHandler } from './big-picture.js';
 
 const modalCloseBtn = bigPictureContainer.querySelector('.big-picture__cancel');
 const bigPicturePreview = bigPictureContainer.querySelector('.big-picture__preview');
@@ -12,6 +12,7 @@ const closeModalHandler = () => {
 
   bigPictureContainer.removeEventListener('click', closeModalHandler);
   bigPicturePreview.removeEventListener('click', setStopPropagationHandler);
+  commentsLoadButton.removeEventListener('click', showCommentsHandler);
 };
 
 const showModal = () => {
@@ -22,6 +23,7 @@ const showModal = () => {
 
   bigPictureContainer.addEventListener('click', closeModalHandler);
   bigPicturePreview.addEventListener('click', setStopPropagationHandler);
+  commentsLoadButton.addEventListener('click', showCommentsHandler);
 };
 
 picturesContainer.addEventListener('click', (evt) => {

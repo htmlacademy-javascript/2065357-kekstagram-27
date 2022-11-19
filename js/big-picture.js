@@ -44,8 +44,6 @@ const showCommentsHandler = () => {
   countCommentVisible += MAX_VISIBLE_OF_COMMENTS;
 };
 
-commentsLoadButton.addEventListener('click', showCommentsHandler);
-
 const renderBigPicture = (data) => {
   image.src = data.url;
   socialCaption.textContent = data.description;
@@ -55,4 +53,4 @@ const renderBigPicture = (data) => {
   showCommentsHandler();
 };
 
-export { bigPictureContainer, renderBigPicture };
+export { bigPictureContainer, commentsLoadButton, renderBigPicture, showCommentsHandler };

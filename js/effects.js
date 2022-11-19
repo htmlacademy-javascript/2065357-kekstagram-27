@@ -1,4 +1,5 @@
 import { previewPicture } from './form.js';
+import { setDefaultScale } from './scale-picture.js';
 
 const EFFECTS_SETTINGS = {
   none: {
@@ -93,14 +94,16 @@ const setEffectSettings = (effect) => {
   });
 };
 
-const setDefaultEffect = () => {
+const resetPictureEffects = () => {
   setEffectSettings(DEFAULT_EFFECT);
+  setDefaultScale();
 };
 
 const effectsClickHandler = (evt) => {
   if (evt.target.closest('.effects__radio')) {
     setEffectSettings(evt.target.value);
+    setDefaultScale();
   }
 };
 
-export { effectsClickHandler, setDefaultEffect };
+export { effectsClickHandler, resetPictureEffects };

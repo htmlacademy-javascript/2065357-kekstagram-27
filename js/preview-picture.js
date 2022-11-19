@@ -1,9 +1,6 @@
 import { renderBigPicture } from './big-picture.js';
-import { createPhotoCards } from './data.js';
 
 const picturesContainer = document.querySelector('.pictures');
-
-const previewPhotoCards = createPhotoCards();
 
 const photoTemplate = document.querySelector('#picture')
   .content
@@ -29,6 +26,6 @@ const renderPhotoCards = (photoCards) => {
   return photoCardsFragment;
 };
 
-const renderPictures = () => picturesContainer.append(renderPhotoCards(previewPhotoCards));
+const renderPictures = (pictures) => picturesContainer.append(renderPhotoCards(pictures));
 
 export { renderPictures, picturesContainer };
