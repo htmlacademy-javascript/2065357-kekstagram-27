@@ -1,4 +1,6 @@
 import { renderBigPicture } from './big-picture.js';
+import { sendRequest } from './api.js';
+import { showGetErrorMessage } from './message.js';
 
 const picturesContainer = document.querySelector('.pictures');
 
@@ -28,4 +30,10 @@ const renderPhotoCards = (photoCards) => {
 
 const renderPictures = (pictures) => picturesContainer.append(renderPhotoCards(pictures));
 
-export { renderPictures, picturesContainer };
+const renderDefaultPictures = () => {
+  sendRequest((pictures) => {
+    renderPictures(pictures);
+  }, showGetErrorMessage, 'GET');
+};
+
+export { renderDefaultPictures, renderPictures, picturesContainer };
