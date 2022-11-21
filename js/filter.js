@@ -1,4 +1,4 @@
-import { renderDefaultPictures, renderPictures } from './preview-picture.js';
+import { renderPictures } from './preview-picture.js';
 import { debounce, getUniqueRandomElementsArray } from './util.js';
 
 const LENGTH_OF_ARRAY = 10;
@@ -15,8 +15,6 @@ const resetPictures = () => {
 };
 
 const showFilters = () => filtersContainer.classList.remove('img-filters--inactive');
-
-const setFilterDefault = () => renderDefaultPictures();
 
 const setFilterRandom = (pictures) => getUniqueRandomElementsArray(pictures, LENGTH_OF_ARRAY);
 
@@ -36,13 +34,14 @@ const makeButtonActive = (evt) => {
   }
 };
 
+
 const setFilterClick = (pictures) => {
   filtersContainer.addEventListener('click', debounce((evt) => {
     makeButtonActive(evt);
     resetPictures();
     switch (evt.target) {
       case filterDefaultButton:
-        setFilterDefault();
+        renderPictures(pictures);
         break;
       case filterRandomButton:
         renderPictures(setFilterRandom(pictures));
