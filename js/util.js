@@ -11,6 +11,8 @@ const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
 const getRandomArrayElement = (arr) => arr[getRandomInteger(0, arr.length - 1)];
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 const getUniqueRandomElementsArray = (arr, length) => {
   const someValues = [];
   while (someValues.length < length) {
@@ -32,4 +34,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export { getRandomInteger, checkStringLength, getUniqueRandomElementsArray, debounce };
+export { getRandomInteger, checkStringLength, getUniqueRandomElementsArray, debounce, isEscapeKey };

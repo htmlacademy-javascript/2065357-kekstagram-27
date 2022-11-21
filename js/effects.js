@@ -72,10 +72,11 @@ const setEffectSettings = (effect) => {
   sliderField.classList.remove('hidden');
   if (effect === DEFAULT_EFFECT) {
     sliderField.classList.add('hidden');
+    previewPicture.style.filter = EFFECTS_SETTINGS[DEFAULT_EFFECT].filter;
+    return;
   }
 
   previewPicture.removeAttribute('class');
-  previewPicture.removeAttribute('style');
   previewPicture.classList.add(EFFECTS_SETTINGS[effect].class);
 
   uploadFormSlider.noUiSlider.updateOptions({
@@ -87,7 +88,7 @@ const setEffectSettings = (effect) => {
     start: EFFECTS_SETTINGS[effect].max,
   });
 
-  uploadFormSlider.noUiSlider.on('slide', () => {
+  uploadFormSlider.noUiSlider.on('update', () => {
     const sliderValue = uploadFormSlider.noUiSlider.get();
     effectLevel.value = sliderValue;
     previewPicture.style.filter = `${EFFECTS_SETTINGS[effect].filter}(${sliderValue}${EFFECTS_SETTINGS[effect].unit})`;
@@ -102,7 +103,6 @@ const resetPictureEffects = () => {
 const effectsClickHandler = (evt) => {
   if (evt.target.closest('.effects__radio')) {
     setEffectSettings(evt.target.value);
-    setDefaultScale();
   }
 };
 

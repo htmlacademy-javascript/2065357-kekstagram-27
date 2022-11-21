@@ -1,5 +1,3 @@
-import { sendRequest } from './api.js';
-import { showGetErrorMessage } from './message.js';
 import { renderDefaultPictures, renderPictures } from './preview-picture.js';
 import { debounce, getUniqueRandomElementsArray } from './util.js';
 
@@ -20,44 +18,40 @@ const showFilters = () => filtersContainer.classList.remove('img-filters--inacti
 
 const setFilterDefault = () => renderDefaultPictures();
 
-const setFilterRandom = () => {
-  sendRequest((pictures) => {
-    renderPictures(getUniqueRandomElementsArray(pictures, LENGTH_OF_ARRAY));
-  }, showGetErrorMessage, 'GET');
+const setFilterRandom = (pictures) => getUniqueRandomElementsArray(pictures, LENGTH_OF_ARRAY);
+
+const setFilterDiscussed = (pictures) => {
+  const popularPictures = pictures.slice().sort((picture1, picture2) => picture2.comments.length - picture1.comments.length);
+  return popularPictures;
 };
 
-const setFilterDiscussed = () => {
-  sendRequest((pictures) => {
-    const popularPictures = pictures.slice().sort((picture1, picture2) => picture2.comments.length - picture1.comments.length);
-    renderPictures(popularPictures);
-  }, showGetErrorMessage, 'GET');
-};
-
-const setFilter = (evt) => {
-  switch (evt) {
-    case filterDefaultButton:
-      setFilterDefault();
-      break;
-    case filterRandomButton:
-      setFilterRandom();
-      break;
-    case filterDiscussedButton:
-      setFilterDiscussed();
-      break;
-  }
-};
-
-filtersContainer.addEventListener('click', debounce((evt) => {
+const makeButtonActive = (evt) => {
   if (evt.target.closest('.img-filters__button')) {
-    resetPictures();
     evt.target.classList.add('img-filters__button--active');
     filtersButtons.forEach((button) => {
       if (evt.target !== button) {
         button.classList.remove('img-filters__button--active');
       }
     });
-    setFilter(evt.target);
   }
-}));
+};
 
-export { showFilters };
+const setFilterClick = (pictures) => {
+  filtersContainer.addEventListener('click', debounce((evt) => {
+    makeButtonActive(evt);
+    resetPictures();
+    switch (evt.target) {
+      case filterDefaultButton:
+        setFilterDefault();
+        break;
+      case filterRandomButton:
+        renderPictures(setFilterRandom(pictures));
+        break;
+      case filterDiscussedButton:
+        renderPictures(setFilterDiscussed(pictures));
+        break;
+    }
+  }));
+};
+
+export { showFilters, setFilterClick };

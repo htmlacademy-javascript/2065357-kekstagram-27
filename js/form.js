@@ -4,6 +4,7 @@ import { scaleDownClickHandler, scaleUpClickHandler } from './scale-picture.js';
 import { sendRequest } from './api.js';
 import { showErrorMessage, showSuccessMessage, postErrorMessage } from './message.js';
 import { resetPhotoFields, setUserLoadPhoto } from './upload-photo.js';
+import { isEscapeKey } from './util.js';
 
 const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const uploadField = uploadForm.querySelector('#upload-file');
@@ -30,10 +31,9 @@ const closeUploadFormHandler = () => {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', escapeKeydownHandler);
   closeButton.removeEventListener('click', closeUploadFormHandler);
-  uploadOverlay.removeEventListener('click', uploadOverlayClickHandler);
-  effectsContainer.removeEventListener('click', effectsClickHandler);
   scaleUpButton.removeEventListener('click', scaleUpClickHandler);
   scaleDownButton.removeEventListener('click', scaleDownClickHandler);
+  effectsContainer.removeEventListener('click', effectsClickHandler);
 };
 
 const showUploadFormHandler = () => {
@@ -42,10 +42,9 @@ const showUploadFormHandler = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', escapeKeydownHandler);
   closeButton.addEventListener('click', closeUploadFormHandler);
-  uploadOverlay.addEventListener('click', uploadOverlayClickHandler);
-  effectsContainer.addEventListener('click', effectsClickHandler);
   scaleUpButton.addEventListener('click', scaleUpClickHandler);
   scaleDownButton.addEventListener('click', scaleDownClickHandler);
+  effectsContainer.addEventListener('click', effectsClickHandler);
   setUserLoadPhoto(uploadField);
 };
 
@@ -61,18 +60,12 @@ const unblockSubmitButton = () => {
 
 const checkFocus = (evt) => evt.target.className === 'text__description' || evt.target.className === 'text__hashtags';
 
-function uploadOverlayClickHandler(evt) {
-  if (evt.target.className === 'img-upload__overlay') {
-    closeUploadFormHandler();
-  }
-}
-
 function escapeKeydownHandler(evt) {
   if (document.body.lastChild === postErrorMessage) {
     return;
   }
 
-  if (evt.key === 'Escape' && !checkFocus(evt)) {
+  if (isEscapeKey && !checkFocus(evt)) {
     evt.preventDefault();
     closeUploadFormHandler();
   }
