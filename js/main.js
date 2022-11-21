@@ -6,9 +6,10 @@ import './effects.js';
 import { sendRequest } from './api.js';
 import { renderDefaultPictures } from './preview-picture.js';
 import { showGetErrorMessage } from './message.js';
-import { showFilters } from './filter.js';
+import { showFilters, setFilterClick } from './filter.js';
 
-sendRequest(() => {
+sendRequest((pictures) => {
   renderDefaultPictures();
   showFilters();
+  setFilterClick(pictures);
 }, showGetErrorMessage, 'GET');
