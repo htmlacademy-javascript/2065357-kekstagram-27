@@ -24,7 +24,7 @@ const getUniqueRandomElementsArray = (arr, length) => {
   return someValues;
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay) => {
 
   let timeoutId;
 
