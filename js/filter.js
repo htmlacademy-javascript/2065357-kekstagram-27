@@ -2,6 +2,7 @@ import { renderPictures } from './preview-picture.js';
 import { debounce, getUniqueRandomElementsArray } from './util.js';
 
 const LENGTH_OF_ARRAY = 10;
+const TIME_OF_DELAY = 500;
 
 const filtersContainer = document.querySelector('.img-filters');
 const filtersButtons = filtersContainer.querySelectorAll('.img-filters__button');
@@ -18,10 +19,7 @@ const showFilters = () => filtersContainer.classList.remove('img-filters--inacti
 
 const setFilterRandom = (pictures) => getUniqueRandomElementsArray(pictures, LENGTH_OF_ARRAY);
 
-const setFilterDiscussed = (pictures) => {
-  const popularPictures = pictures.slice().sort((picture1, picture2) => picture2.comments.length - picture1.comments.length);
-  return popularPictures;
-};
+const setFilterDiscussed = (pictures) => pictures.slice().sort((picture1, picture2) => picture2.comments.length - picture1.comments.length);
 
 const makeButtonActive = (evt) => {
   if (evt.target.closest('.img-filters__button')) {
@@ -50,7 +48,7 @@ const setFilterClick = (pictures) => {
         renderPictures(setFilterDiscussed(pictures));
         break;
     }
-  }));
+  }, TIME_OF_DELAY));
 };
 
 export { showFilters, setFilterClick };

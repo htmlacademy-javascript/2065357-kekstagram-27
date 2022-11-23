@@ -8,7 +8,7 @@ const commentsLoadButton = bigPictureContainer.querySelector('.comments-loader')
 const commentsCountInfoBlock = bigPictureContainer.querySelector('.social__comment-count');
 const socialCaption = bigPictureContainer.querySelector('.social__caption');
 const commentsContainer = bigPictureContainer.querySelector('.social__comments');
-const commentElement = commentsContainer.querySelector('.social__comment');
+const comment = commentsContainer.querySelector('.social__comment');
 
 let countCommentVisible = MAX_VISIBLE_OF_COMMENTS;
 const renderComments = (comments) => {
@@ -16,12 +16,12 @@ const renderComments = (comments) => {
   commentsContainer.innerHTML = '';
   countCommentVisible = MAX_VISIBLE_OF_COMMENTS;
 
-  comments.forEach((comment) => {
-    const commentTemplate = commentElement.cloneNode(true);
+  comments.forEach((item) => {
+    const commentTemplate = comment.cloneNode(true);
     commentTemplate.classList.add('hidden');
-    commentTemplate.querySelector('.social__picture').src = comment.avatar;
-    commentTemplate.querySelector('.social__picture').alt = comment.name;
-    commentTemplate.querySelector('.social__text').textContent = comment.message;
+    commentTemplate.querySelector('.social__picture').src = item.avatar;
+    commentTemplate.querySelector('.social__picture').alt = item.name;
+    commentTemplate.querySelector('.social__text').textContent = item.message;
 
     commentsContainer.append(commentTemplate);
 
